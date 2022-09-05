@@ -11,7 +11,6 @@ export default class Search extends Component {
     searchArtist: '',
     isSearchButtonDisabled: true,
     artistList: [],
-    // foundArtist: false,
   };
 
   onInputChange = ({ target }) => {
@@ -44,7 +43,6 @@ export default class Search extends Component {
     const artist = await searchAlbumsAPI(searchArtist);
     this.setState({
       artistList: artist,
-      // foundArtist: true,
       isLoading: false,
     });
   };
