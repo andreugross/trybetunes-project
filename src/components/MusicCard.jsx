@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 
 export default class MusicCard extends Component {
   render() {
-    const { artistName, albumName, trackName, previewUrl } = this.props;
-    console.log(albumName);
+    const { trackName, previewUrl } = this.props;
     return (
       <div>
-        <h2>{artistName}</h2>
-        <h3>{albumName}</h3>
-        <h4>{trackName}</h4>
+        <p>{trackName}</p>
         <audio data-testid="audio-component" src={ previewUrl } controls>
           <track kind="captions" />
           O seu navegador não suporta o elemento
@@ -22,7 +19,6 @@ export default class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
-  artistName: PropTypes.string,
-  albumName: PropTypes.string,
   trackName: PropTypes.string,
+  previewUrl: PropTypes.string,
 }.isRequired;

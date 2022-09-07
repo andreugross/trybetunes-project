@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
-import Loading from './Loading';
 import MusicCard from '../components/MusicCard';
-
+// ======================> Referencia de ajuda pessoa estudante Gabriel Coelho
 export default class Album extends Component {
   state = {
-    albumList: [],
+    // isLoading: false,
     musicList: [],
-    isLoading: false,
   };
 
   componentDidMount() {
@@ -24,39 +22,28 @@ export default class Album extends Component {
     } = this.props;
     const music = await getMusics(id);
     this.setState({
-      albumList: music,
-      musicList: music.filter((element, index) => index !== 0),
+      artistName: music[0].artistName,
+      albumName: music[0].collectionName,
+      musicList: music.filter((_element, index) => index !== 0),
     });
   };
 
   render() {
-    const { albumList, musicList, isLoading } = this.state;
+    const { musicList, artistName, albumName } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <div>
-              {albumList.map((element, index) => (index === 0 ? (
-                <div key={ index }>
-                  <h2 data-testid="artist-name">{element.artistName}</h2>
-                  <p data-testid="album-name">{element.collectionName}</p>
-                </div>
-              ) : null))}
-            </div>
-            <ul>
-              {musicList.map((element, index) => (
-                <MusicCard
-                  key={ index }
-                  trackName={ element.trackName }
-                  previewUrl={ element.previewUrl }
-                />
-              ))}
-            </ul>
-          </>
-        )}
+        <div>
+          <h2 data-testid="album-name">{albumName}</h2>
+          <h3 data-testid="artist-name">{artistName}</h3>
+          {musicList.map((element) => (
+            <MusicCard
+              key={ element.trackId }
+              trackName={ element.trackName }
+              previewUrl={ element.previewUrl }
+            />
+          ))}
+        </div>
       </div>
     );
   }
