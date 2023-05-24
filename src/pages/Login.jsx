@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import Loading from './Loading';
+import '../style/login.css';
 
 export default class Login extends Component {
   state = {
@@ -53,29 +54,38 @@ export default class Login extends Component {
         {isLoading ? (
           <Loading />
         ) : (
-          <form>
-            <label htmlFor="name">
-              Nome
-              <input
-                data-testid="login-name-input"
-                type="text"
-                name="loginName"
-                id="name"
-                onChange={ this.onInputChange }
-              />
-            </label>
-            <div>
-              <button
-                data-testid="login-submit-button"
-                type="button"
-                name="submit-button"
-                disabled={ isSaveButtonDisabled }
-                onClick={ this.handleSaveLogin }
-              >
-                Entrar
-              </button>
+          <div className="inFormBackground">
+            <div className="circle" />
+            <div className="circle" />
+            <div className="inLoginForm">
+              <form>
+                <div className="title">
+                  <h3>Login</h3>
+                </div>
+                <label className="inputGroup" htmlFor="name">
+                  Nome
+                  <input
+                    data-testid="login-name-input"
+                    placeholder="nome"
+                    type="text"
+                    name="loginName"
+                    id="name"
+                    onChange={ this.onInputChange }
+                  />
+                </label>
+                <button
+                  className="submitForm"
+                  data-testid="login-submit-button"
+                  type="button"
+                  name="submit-button"
+                  disabled={ isSaveButtonDisabled }
+                  onClick={ this.handleSaveLogin }
+                >
+                  Entrar
+                </button>
+              </form>
             </div>
-          </form>
+          </div>
         )}
         {isRedirect && <Redirect to="/search" />}
       </div>
